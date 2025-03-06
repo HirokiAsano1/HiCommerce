@@ -23,8 +23,8 @@ public class ProductService {
     public ProductDTO findById(Long id){
        Optional <Product> result =  productRepository.findById(id);
        Product product = result.get();
-       ProductDTO productDTO = new ProductDTO(product);
-       return productDTO;
+        return new ProductDTO(product);
+
     }
 
     @Transactional(readOnly = true)
@@ -33,7 +33,7 @@ public class ProductService {
         return products.map(ProductDTO::new);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public  ProductDTO insert (ProductDTO productDTO){
 
         Product product = new Product();

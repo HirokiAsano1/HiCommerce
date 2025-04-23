@@ -3,7 +3,6 @@ package com.Ecommerce.hicommerce.controllers;
 
 
 import com.Ecommerce.hicommerce.dto.ProductDTO;
-import com.Ecommerce.hicommerce.entities.Product;
 import com.Ecommerce.hicommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +40,18 @@ public class ProductController {
         productDTO = productService.insert(productDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(productDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(productDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProductDTO> update (@PathVariable long id,@RequestBody ProductDTO productDTO) {
+        productDTO = productService.update(id,productDTO);
+        return ResponseEntity.ok(productDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete (@PathVariable long id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
